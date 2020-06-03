@@ -1,0 +1,179 @@
+#%RAML 1.0
+baseUri: https://anypoint.mulesoft.com/mocking/api/v1/links/8e2456d8-8cf1-499c-8c0f-0573b2f46a1e/ # 
+title: online shopping 
+version: 1.0.0
+
+types:
+  user: !include datatype/user/user.raml
+  userpost: !include datatype/user/userpost.raml
+  userid : !include datatype/user/userid.raml
+
+
+/user:
+  post:
+    body:
+      application/json:
+          type: userpost
+          example: !include examples/user/postuserrequest.raml
+       
+    responses:
+      200:
+        body:
+          application/json:
+          
+            
+            example: !include examples/user/postuserresponse.raml
+      201:
+        body:
+          application/json:
+            example:
+              {"message":"created"}
+      401:
+        body:
+          application/json:
+            example:
+              {"message":"unauthorized"}
+      403:
+        body:
+          application/json:
+            example:
+              {"message":"forbidden"} 
+      404:
+        body:
+          application/json:
+            example:
+              {"message":"not found"}               
+              
+             
+  get:
+    responses:
+      200:
+        body:
+          application/json:
+            type: user []
+            
+            example: !include examples/user/getuser.raml
+      401:
+        body:
+          application/json:
+            example:
+              {"message":"unauthorized"}
+      403:
+        body:
+          application/json:
+            example:
+              {"message":"forbidden"}
+      404:
+        body:
+          application/json:
+            example:
+              {"message":"not found"}
+  /{id}:
+    uriParameters:
+      id:
+        required: true
+        type: integer
+    get:
+      responses:
+        200:
+          body:
+            application/json:
+               type: userid
+               example: !include examples/user/getuserid.raml
+                
+/products:
+                
+  get:
+    responses:
+      200:
+        body:
+          application/json:
+          
+            example: !include examples/products/getproduct.raml      
+    
+  /{id}:
+    uriParameters:
+      id:
+    get:
+      responses:
+        200:
+          body:
+            application/json:
+              example: !include examples/products/getproductid.raml                   
+/categories:
+  get:
+    responses:
+      200:
+        body:
+          application/json:
+            example: !include examples/categories/getcategory.raml
+    
+  /{id}:
+    uriParameters:
+      id:
+    get:
+      responses:
+        200:
+          body:
+            application/json:
+              example: !include examples/categories/getcategoryid.raml
+  
+/orders:
+  get:
+    responses:
+      200:
+        body:
+          application/json:
+            example: !include examples/orders/getorders.raml
+      
+  /{id}:
+    uriParameters:
+      id:
+    get:
+      responses:
+        200:
+          body:
+            application/json:
+              example: !include examples/orders/getordersid.raml
+               
+  post:
+        body:
+          application/json:
+            example: !include examples/orders/postorders.raml
+     
+        responses:
+          200:
+            body:
+              application/json:
+                example: !include examples/orders/postresponseorders.raml
+          201:
+            body:
+              application/json:
+                example:
+                  {"message":"created"}
+          401:
+           body:
+             application/json:
+               example:
+                 {"message":"unauthorized"}
+          403:
+            body:
+              application/json:
+                example:
+                  {"message":"forbidden"}
+          404:
+            body:
+              application/json:
+                example:
+                  {"message":"not found"}      
+            
+                   
+                 
+
+
+  
+  
+
+
+              
+
